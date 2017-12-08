@@ -1,4 +1,6 @@
-#!usr/bin/python
+#!/usr/bin/python
+
+# WARNING: I AM NOT RESPONSIBLE FOR ANY DAMAGES CAUSED BY RUNNING THIS SCRIPT
 
 import sys
 import argparse
@@ -30,10 +32,10 @@ def convert_to_binary(num):
 def main():
     counter = 0
 
+    # change '50' below to change how long the script runs for
     while counter < 50:
         try:
             for i in range(1, (int(args.int) + 1)):
-                # for cool stuff, remove `+ ' - ' + str(i)` down below B|
                 print(convert_to_binary(i))
             counter += 1
         except ValueError as err:
