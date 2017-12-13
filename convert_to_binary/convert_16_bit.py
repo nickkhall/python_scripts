@@ -33,7 +33,7 @@ def main():
             return_number = convert_to_binary(int(args.int))
             print('Binary: ' + return_number)
         else:
-            print('[-] ERROR:\nPlease provide a valid number between 1 and 65,gist535 to convert to binary. fucking idiot')
+            print('[-] ERROR:\nPlease provide a valid number between 1 and 65,535 to convert to binary. fucking idiot')
             print('Usage: python 16_bit_binary.py 1337')
     except ValueError as err:
         print('Error: ' + str(err))
