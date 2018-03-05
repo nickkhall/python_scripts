@@ -17,13 +17,14 @@ def Main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
 
+    msg = input('$ ')
+
     while True:
-        msg = input('WTF BRO THIS IS FRUSTRATING UGHH')
-        client_socket.sendall(msg)
+        client_socket.sendall(msg.encode('utf-8'))
 
         data = client_socket.recv(1024)
-        formatted_data = data.format(data)
         print(str(data))
+        msg = input('$ ')
 
     client_socket.close()
     quit()
