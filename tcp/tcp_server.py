@@ -1,5 +1,9 @@
+#!/usr/bin/env python
+
 import socket
 import sys
+import re
+import subprocess
 
 if not len(sys.argv) == 3:
     print('Please enter a host and port number')
@@ -34,11 +38,19 @@ def Main():
             print('Connection from: ' + str(address))
 
             while True:
-                data = connection.recv(1024)
-                print('Received {!r}'.format(data))
+                conn_data = connection.recv(1024)
+                data = conn_data.decode('utf-8')
                 if data:
-                    print('Sending data to client....')
-                    connection.sendall(data)
+                    print('data: ', data)
+                    matched_data = re.match(r'giveme\s(.+\..+)', str(data))
+                    if matched_data:
+                        filename = matched_data.group(1)
+                        print('Filename: ' + str(filename))
+                        run_cmd = subprocess.run(['ls', '-la'], stdout=subprocess.PIPE)
+                        print('returncode: ', run_cmd.returncode)
+                        print('Have {} bytes in the stdout:\n{}'.format(len(run_cmd.stdout), run_cmd.std.decode('utf-8')))
+
+                        # connection.sendall(filename.encode('utf-8'))
                 else:
                     print('No more data.')
                     break
