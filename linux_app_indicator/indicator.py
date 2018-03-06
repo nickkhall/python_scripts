@@ -6,11 +6,12 @@ gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk as gtk
 from gi.repository import AppIndicator3 as appindicator
 import signal
+import os
 
 APPINDICATOR_ID = 'vpn_status'
 
 def Main():
-    indicator = appindicator.Indicator.new(APPINDICATOR_ID, 'VPN STATUS', appindicator.IndicatorCategory.SYSTEM_SERVICES)
+    indicator = appindicator.Indicator.new(APPINDICATOR_ID, os.path.abspath('lock.svg'), appindicator.IndicatorCategory.SYSTEM_SERVICES)
     indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
     indicator.set_menu(build_menu())
     gtk.main()
