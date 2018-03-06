@@ -15,7 +15,6 @@ else:
     if port <= 1024:
         print('You must enter a port number above 1024')
         quit()
-    print('file:', sys.argv[0], 'host:', host, 'port:', port)
 
 def Main():
     # Create server socket obj
