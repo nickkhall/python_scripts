@@ -5,19 +5,10 @@ import subprocess
 import sys
 import os
 
-if not len(sys.argv) == 3:
-    print('Please enter a host and port number')
-    print('USAGE: python ./tcp_client.py 127.0.0.1 4532')
-    quit()
-else:
-    host = sys.argv[1]
-    port = int(sys.argv[2])
-    if port <= 1024:
-        print('You must enter a port number above 1024')
-        quit()
-
 def Main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host = '127.0.0.1'
+    port = 3333
     client_socket.connect((host, port))
 
     while True:
