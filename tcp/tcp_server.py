@@ -1,5 +1,9 @@
+#!/usr/bin/env python
+
 import socket
 import sys
+import re
+import subprocess
 
 if not len(sys.argv) == 3:
     print('Please enter a host and port number')
@@ -23,29 +27,25 @@ def Main():
     # Listen for connections
     server_socket.listen(1)
 
+    # Let user know we are listening for a connection
+    print('Listening for connection on port ' + str(port))
+
+    # Accept connection and data from client
+    connection, address = server_socket.accept()
+
     while True:
-        # Let user know we are listening for a connection
-        print('Listening for connection on port ' + str(port))
-
-        # Accept connection and data from client
-        connection, address = server_socket.accept()
-
-        try:
-            print('Connection from: ' + str(address))
-
-            while True:
-                data = connection.recv(1024)
-                print('Received {!r}'.format(data))
-                if data:
-                    print('Sending data to client....')
-                    connection.sendall(data)
-                else:
-                    print('No more data.')
-                    break
-
-        finally:
-            # Close the connection
+        cmd = input()
+        if cmd == 'quit':
             connection.close()
+            client_socket.close()
+            sys.exit()
+        if len(str.encode(cmd)) > 0:
+            connection.send(str.encode(cmd))
+            print(str(connection.recv(1024), "utf-8"), end="")
+
+    connection.close()
+    server_socket.close()
+    sys.exit()
 
 
 if __name__ == '__main__':
