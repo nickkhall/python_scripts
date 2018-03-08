@@ -32,6 +32,9 @@ def Main():
     # Accept connection and data from client
     connection, address = server_socket.accept()
 
+    if connection and address:
+        print('Successfully connected to', str(address[0]))
+
     while True:
         cmd = input()
         if cmd == 'quit':
