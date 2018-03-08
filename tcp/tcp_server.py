@@ -33,6 +33,9 @@ def Main():
     # Accept connection and data from client
     connection, address = server_socket.accept()
 
+    if connection and address:
+        print('Successfully connected to', str(address[0]))
+
     while True:
         cmd = input()
         if cmd == 'quit':
@@ -42,6 +45,7 @@ def Main():
         if len(str.encode(cmd)) > 0:
             connection.send(str.encode(cmd))
             print(str(connection.recv(1024), "utf-8"), end="")
+
 
     connection.close()
     server_socket.close()
