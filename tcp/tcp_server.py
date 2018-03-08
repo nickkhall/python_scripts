@@ -46,7 +46,6 @@ def Main():
             connection.send(str.encode(cmd))
             print(str(connection.recv(1024), "utf-8"), end="")
 
-
     connection.close()
     server_socket.close()
     sys.exit()
