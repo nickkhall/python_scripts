@@ -15,5 +15,3 @@ python3 ./tcp_client.py 127.0.0.1 3333
 sleep 1
 
 echo Client running..
-
-# sudo lsof -i :3333
