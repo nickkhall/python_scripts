@@ -2,12 +2,26 @@
 
 from src.client import Client
 from src.server import Server
+import sys
 
-def Main():
-    main_client = Client('127.0.0.1', 3333)
-    print('main_client: ', main_client)
-    main_server = Server('127.0.0.1', 3333)
-    print('main_server: ', main_server)
+if not len(sys.argv) == 3:
+    print('-' * 50)
+    print('[-] ERROR: Please enter a host and port number   |')
+    print('    USAGE: python ./tcp_server.py 127.0.0.1 4532 |')
+    print('-' * 50)
+    quit()
+else:
+    host = sys.argv[1]
+    port = int(sys.argv[2])
+    if port <= 1024:
+        print('You must enter a port number above 1024')
+        quit()
+
+class Main():
+    def __init__(self, host, port):
+        self.server = Server(host, port)
+        self.client = Client(host, port)
+
 
 if __name__ == '__main__':
-    Main()
+    Main(host, port)
