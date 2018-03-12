@@ -21,12 +21,14 @@ class Server:
         self.connection, self.address = self.socket.accept()
         if self.connection and self.address:
             print('Successfully connected to ' + str(self.address[0]))
+            return True
+        return False
 
     def communicate_with_client(self):
         while True:
             self.cmd = input('> ')
 
-            if cmd == 'quit':
+            if self.cmd == 'quit':
                 self.kill_connection()
                 sys.exit()
 

@@ -3,6 +3,7 @@
 import socket as sock
 import os
 import sys
+import subprocess
 
 if not len(sys.argv) == 3:
     print('-' * 50)
@@ -47,6 +48,8 @@ class Client:
 
 def Main(_host, _port):
     client = Client(_host, _port)
+    client.communicate_with_server()
+
 
 if __name__ == '__main__':
     Main(host,port)

@@ -20,7 +20,8 @@ else:
 class Main():
     def __init__(self, host, port):
         self.server = Server(host, port)
-        self.server.connect_to_client()
+        while self.server.connect_to_client() == True:
+            self.server.communicate_with_client()
 
 
 if __name__ == '__main__':
