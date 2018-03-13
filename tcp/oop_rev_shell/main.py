@@ -23,6 +23,8 @@ class Main():
         while self.server.connect_to_client() == True:
             self.server.communicate_with_client()
 
+        # self.server.kill_connection()
+
 
 if __name__ == '__main__':
     Main(host, port)

