@@ -3,11 +3,15 @@
 import pysftp
 
 class Client:
-    def __init__(self, host, port, user, pwd):
+    def __init__(self, host, user, pwd):
         self.host = host
-        self.port = port
         self.user = user
         self.pwd = pwd
+        # self.connection
+        print(host)
 
-    # def connect_to_server():
-    #     with pysftp.Connection(host, username=)
+    # def connect_to_server(self):
+    #     try:
+    #         self.connection = pysftp.Connection()
+    #     catch:
+    #
